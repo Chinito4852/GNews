@@ -60,9 +60,8 @@ function App() {
   }
 
   const showBody = () => {
-    console.log(articles);
     return (
-      !loading ? showStories() : "loading"
+      !loading ? showStories() : showLoader()
     );
   }
 
@@ -75,17 +74,37 @@ function App() {
   }
 
   const showStory = (story, index) => {
+    return (story.image != null) ? showStoryWithImage(story, index) : showStoryWithoutImage(story, index);
+  }
+
+  const showStoryWithImage = (story, index) => {
     return (
       <div className="card news-card" key={index}>
         <div className="row">
           <div className="col-md-4">
             <img src={story.image} className="card-img" alt={story.title}/>
           </div>
-          <div class="col-md-8">
+          <div className="col-md-8">
             <div className="card-body">
               <h5><a href={story.url} target="_blank">{story.title}</a></h5>
               <p className="card-text">{story.description}</p>
-              <p className="card-text"><small class="text-muted">{story.publishedAt.slice(0,10)}</small></p>
+              <p className="card-text"><small className="text-muted">{story.publishedAt.slice(0,10)}</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const showStoryWithoutImage = (story, index) => {
+    return (
+      <div className="card news-card" key={index}>
+        <div className="row">
+          <div className="col-md">
+            <div className="card-body">
+              <h5><a href={story.url} target="_blank">{story.title}</a></h5>
+              <p className="card-text">{story.description}</p>
+              <p className="card-text"><small className="text-muted">{story.publishedAt.slice(0,10)}</small></p>
             </div>
           </div>
         </div>
